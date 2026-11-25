@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Darcyzinho, assistente escolar do CETI Professor Darcy Araújo. Converse por texto ou por voz.">
+  <meta name="theme-color" content="#f5f7f2">
+  <title>Darcyzinho — Assistente escolar</title>
+  <link rel="icon" href="./marca.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l1.7-3.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 11.5h7m-7 3h4"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15 9a4 4 0 0 1 0 6m3-9a8.5 8.5 0 0 1 0 12"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zm5 4 6 6m0-6-6 6"/></symbol>
+    <symbol id="i-school" viewBox="0 0 24 24"><path d="m3 10 9-6 9 6M5 10v10m14-10v10M3 20h18M9 20v-5h6v5m-7-8h.01m8-.01h.01"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5.5C9 4 6 4 3.5 4.5v14c2.5-.5 5.5-.5 8.5 1 3-1.5 6-1.5 8.5-1v-14C18 4 15 4 12 5.5Zm0 0v14"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1m-7 8v3m-3 0h6"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 11a8 8 0 1 1 2 6m-2-2v-4h4" transform="rotate(20 12 12)"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m21 3-7 18-3-8-8-3 18-7ZM11 13 21 3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 7 3v6c0 4-2.8 7-7 9-4.2-2-7-5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  </svg>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="./" aria-label="Darcyzinho, início">
+        <img src="./marca.svg" width="44" height="44" alt="">
+        <span><strong>Darcyzinho</strong><small>Assistente escolar</small></span>
+      </a>
+      <button type="button" class="sound button-secondary" id="sound" aria-pressed="false" aria-label="Respostas em voz">
+        <svg class="icon" aria-hidden="true"><use id="sound-icon" href="#i-mute"></use></svg>
+        <span id="sound-label">Som desligado</span>
+      </button>
+    </div>
+  </header>
+  <main class="workspace">
+    <section class="hero" aria-labelledby="welcome-title">
+      <div class="hero-stars" aria-hidden="true">
+        <span class="hero-star" style="--x: 86%; --y: 10%; --size: 25px"></span>
+        <span class="hero-star" style="--x: 77%; --y: 21%; --size: 9px; --light: .54"></span>
+        <span class="hero-star" style="--x: 92%; --y: 32%; --size: 14px; --light: .68"></span>
+        <span class="hero-star" style="--x: 9%; --y: 49%; --size: 14px; --light: .62"></span>
+        <span class="hero-star" style="--x: 12%; --y: 78%; --size: 10px; --light: .62"></span>
+        <span class="hero-star" style="--x: 89%; --y: 82%; --size: 24px"></span>
+        <span class="hero-star" style="--x: 76%; --y: 93%; --size: 9px; --light: .62"></span>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-school"><svg class="icon" aria-hidden="true"><use href="#i-school"></use></svg> CETI PROFESSOR DARCY ARAÚJO</p>
+        <h1 id="welcome-title">Olá, eu sou o <span>Darcyzinho!</span></h1>
+        <p>Seu colega digital para dúvidas sobre o curso e a vida escolar.</p>
+      </div>
+      <div class="hero-art" id="face" data-state="idle">
+        <svg class="orbits" viewBox="0 0 460 306" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <ellipse cx="230" cy="158" rx="152" ry="100" transform="rotate(-20 230 158)"/>
+          <ellipse cx="230" cy="158" rx="185" ry="116" transform="rotate(-20 230 158)"/>
+          <ellipse cx="230" cy="158" rx="219" ry="132" transform="rotate(-20 230 158)"/>
+          <path class="constellation" d="M325 55 342 29 371 49 392 33"/>
+          <g class="orbit-point">
+            <circle cx="325" cy="55" r="2"/>
+            <circle cx="371" cy="49" r="2.5"/>
+            <circle cx="392" cy="33" r="2"/>
+          </g>
+          <circle cx="77" cy="229" r="4" class="orbit-point"/>
+          <circle cx="394" cy="201" r="3.5" class="orbit-point faint"/>
+          <circle cx="342" cy="29" r="4" class="orbit-point faint"/>
+          <path class="spark" d="M93 62v24M81 74h24m-20-8 16 16m0-16L85 82M369 98v16m-8-8h16m-44 148v22m-11-11h22"/>
+        </svg>
+        <svg class="mascot" viewBox="0 0 240 240" role="img" aria-label="Rosto do Darcyzinho">
+          <defs>
+            <clipPath id="faceClip"><circle cx="120" cy="124" r="86"/></clipPath>
+            <clipPath id="mouthClip"><path d="M88 139 Q120 143 152 139 Q150 174 120 174 Q90 174 88 139 Z"/></clipPath>
+            <linearGradient id="shade" x2=".7" y2="1"><stop stop-color="#68d8aa"/><stop offset="1" stop-color="#24996f"/></linearGradient>
+            <linearGradient id="light" x2=".74" y2="1"><stop stop-color="#a6f1c5"/><stop offset="1" stop-color="#5bd5a1"/></linearGradient>
+          </defs>
+          <ellipse cx="120" cy="226" rx="58" ry="6" fill="#04251c" opacity=".58"/>
+          <g class="face-dots" fill="#baf8d6">
+            <circle cx="188" cy="66" r="3"/><circle cx="200" cy="52" r="4.5"/><circle cx="214" cy="34" r="6.5"/>
+          </g>
+          <g class="face-bob">
+            <circle cx="120" cy="124" r="86" fill="url(#shade)"/>
+            <g clip-path="url(#faceClip)"><circle cx="113" cy="117" r="83" fill="url(#light)"/></g>
+            <ellipse cx="80" cy="68" rx="24" ry="10" transform="rotate(-32 80 68)" fill="#d8ffe9" opacity=".54"/>
+            <circle cx="120" cy="124" r="86" fill="none" stroke="#a9f5cc" stroke-opacity=".66" stroke-width="1.5"/>
+            <g fill="#f9a8a3" opacity=".83"><circle cx="60" cy="140" r="11"/><circle cx="180" cy="140" r="11"/></g>
+            <g class="face-ink face-brows"><path d="M66 92 Q84 83 102 90"/><path d="M138 90 Q156 83 174 92"/></g>
+            <g class="face-ink face-happy"><path d="M64 119 Q85 88 106 119"/><path d="M134 119 Q155 88 176 119"/></g>
+            <g class="face-eyes">
+              <ellipse cx="85" cy="112" rx="8.5" ry="11.5" fill="#08201f"/><circle cx="88.2" cy="107.6" r="3" fill="#fff"/>
+              <ellipse cx="155" cy="112" rx="8.5" ry="11.5" fill="#08201f"/><circle cx="158.2" cy="107.6" r="3" fill="#fff"/>
+            </g>
+            <path class="face-ink face-smile" d="M80 140 Q120 178 160 140"/>
+            <path class="face-ink face-listen" d="M98 146 Q120 160 142 146"/>
+            <path class="face-ink face-think" d="M100 150 Q110 144 120 150 Q130 156 140 150"/>
+            <g class="face-talk">
+              <path d="M88 139 Q120 143 152 139 Q150 174 120 174 Q90 174 88 139 Z" fill="#3b1a24"/>
+              <g clip-path="url(#mouthClip)"><ellipse cx="120" cy="172" rx="16" ry="9" fill="#ff8c96"/></g>
+              <path d="M88 139 Q120 143 152 139 Q150 174 120 174 Q90 174 88 139 Z" fill="none" stroke="#08201f" stroke-width="5" stroke-linejoin="round"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="hero-status"><span class="state-dot" aria-hidden="true"></span><span id="mascot-status">Pronto para conversar</span></div>
+    </section>
+
+    <section class="conversation" aria-labelledby="conversation-title">
+      <header class="chat-header">
+        <div class="chat-title">
+          <span class="chat-title-icon"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg></span>
+          <div><h2 id="conversation-title">Conversa</h2><p id="chat-mode">Curso, carreiras e desafios</p></div>
+        </div>
+        <button type="button" id="reset" class="button-secondary reset">
+          <svg class="icon" aria-hidden="true"><use href="#i-reset"></use></svg> <span>Nova conversa</span>
+        </button>
+      </header>
+
+      <div class="chat-body" id="chat-body" role="log" aria-label="Mensagens da conversa" aria-live="polite" aria-relevant="additions">
+        <article class="message assistant">
+          <img src="./marca.svg" width="34" height="34" alt="">
+          <div class="message-content">
+            <strong>Darcyzinho</strong>
+            <p>Como posso ajudar você hoje? Escolha uma pergunta abaixo ou escreva a sua.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="chat-controls">
+        <div class="suggestions" aria-labelledby="suggest-title">
+          <div class="suggestions-header">
+            <h3 id="suggest-title">Explore o curso</h3>
+            <button type="button" class="button-secondary more-questions" id="more-questions" aria-haspopup="dialog">Mais perguntas</button>
+          </div>
+          <div class="suggestion-grid">
+            <button type="button" data-question="Como é o curso de Desenvolvimento de Sistemas?"><svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>Conhecer o curso</button>
+            <button type="button" data-question="Quais profissões posso seguir?"><svg class="icon" aria-hidden="true"><use href="#i-school"></use></svg>Explorar profissões</button>
+            <button type="button" data-question="Quero ver um projeto de exemplo"><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg>Experimentar um projeto</button>
+            <button type="button" data-challenge><svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>Fazer desafio de lógica</button>
+          </div>
+        </div>
+        <form id="composer" class="composer" autocomplete="off">
+          <label class="sr-only" for="question">Sua mensagem</label>
+          <input id="question" placeholder="Escreva sua pergunta…" maxlength="500" enterkeyhint="send" aria-describedby="composer-note" required>
+          <button type="button" id="microphone" class="mic" aria-label="Ditar pergunta" aria-pressed="false" title="Ditar pergunta"><svg class="icon" aria-hidden="true"><use id="mic-icon" href="#i-mic"></use></svg></button>
+          <button type="submit" class="send" aria-label="Enviar mensagem" title="Enviar mensagem"><svg class="icon" aria-hidden="true"><use href="#i-send"></use></svg></button>
+        </form>
+        <p id="composer-note" class="composer-note" role="status"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg><span id="notice">As mensagens ficam apenas nesta conversa.</span></p>
+        <noscript><p>Ative o JavaScript para conversar com o Darcyzinho.</p></noscript>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <span>Projeto do curso de Desenvolvimento de Sistemas</span>
+    <button type="button" id="about" class="about"><svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg> Sobre e privacidade</button>
+  </footer>
+  <dialog id="questions-dialog" aria-labelledby="questions-title">
+    <header><h2 id="questions-title">Mais perguntas</h2><form method="dialog"><button class="button-secondary close-dialog" aria-label="Fechar perguntas"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></form></header>
+    <div class="suggestion-grid question-list">
+      <button type="button" data-question="Preciso saber programar?">Preciso saber programar?</button>
+      <button type="button" data-question="Quais matérias tem no curso?">Quais matérias tem no curso?</button>
+      <button type="button" data-question="O que é ensino médio integrado?">O que é ensino médio integrado?</button>
+      <button type="button" data-question="Qual a diferença entre DS e Jogos Digitais?">Qual a diferença entre DS e Jogos Digitais?</button>
+      <button type="button" data-question="Posso criar um aplicativo?">Posso criar um aplicativo?</button>
+      <button type="button" data-question="Preciso ter um computador em casa?">Preciso ter um computador em casa?</button>
+      <button type="button" data-question="O que é um algoritmo?">O que é um algoritmo?</button>
+      <button type="button" data-question="Para que serve um banco de dados?">Para que serve um banco de dados?</button>
+    </div>
+  </dialog>
+  <dialog id="project-dialog" aria-labelledby="project-title">
+    <header><h2 id="project-title">Biblioteca digital</h2><form method="dialog"><button class="button-secondary close-dialog" aria-label="Fechar biblioteca"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></form></header>
+    <p>Escolha um livro fictício e registre um empréstimo. Depois, tente emprestar o mesmo exemplar de novo.</p>
+    <form id="project-form" class="project-form">
+      <label for="project-book">Exemplar</label>
+      <select id="project-book">
+        <option value="robot">O Robô do Recreio</option>
+        <option value="sky">O Mapa das Estrelas</option>
+        <option value="inventors">A Turma dos Inventores</option>
+      </select>
+      <p class="project-state">Situação <strong id="project-book-status">Disponível</strong></p>
+      <div class="project-actions">
+        <button type="submit" value="borrow" class="button-secondary">Emprestar</button>
+        <button type="submit" value="return" class="button-secondary">Devolver</button>
+      </div>
+      <p id="project-feedback" role="status"></p>
+    </form>
+    <p>A simulação usa dados fictícios. Os registros são apagados ao iniciar uma nova conversa ou recarregar a página.</p>
+  </dialog>
+  <dialog id="logic-dialog" aria-labelledby="logic-title">
+    <header><h2 id="logic-title">Desafio de lógica</h2><form method="dialog"><button class="button-secondary close-dialog" aria-label="Fechar desafio"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></form></header>
+    <p id="logic-progress" role="status"></p>
+    <form id="logic-form">
+      <fieldset class="logic-options">
+        <legend id="logic-question" tabindex="-1"></legend>
+        <label><input type="radio" name="answer" value="0" required><span></span></label>
+        <label><input type="radio" name="answer" value="1" required><span></span></label>
+        <label><input type="radio" name="answer" value="2" required><span></span></label>
+      </fieldset>
+      <button type="submit" id="logic-check" class="button-secondary">Conferir resposta</button>
+      <button type="button" id="logic-next" class="button-secondary" hidden>Próxima questão</button>
+      <p id="logic-feedback" role="status"></p>
+    </form>
+    <div id="logic-summary" hidden>
+      <p id="logic-result" tabindex="-1"></p>
+      <button type="button" id="logic-restart" class="button-secondary">Jogar novamente</button>
+    </div>
+  </dialog>
+  <dialog id="about-dialog" aria-labelledby="about-title">
+    <header><h2 id="about-title">Sobre o Darcyzinho</h2><form method="dialog"><button class="button-secondary close-dialog" aria-label="Fechar"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button></form></header>
+    <p>Protótipo do assistente escolar do CETI Professor Darcy Araújo. As respostas são preparadas para perguntas frequentes e orientações gerais. Confirme datas, vagas, notas e horários nos canais oficiais da escola.</p>
+    <p>O site mantém as mensagens apenas na página aberta. Ao ditar uma pergunta, o navegador pode processar o áudio por um serviço externo. Evite informar dados pessoais.</p>
+    <p>O microfone é acionado pelo botão de ditado. A transcrição fica no campo de mensagem para você revisar antes de enviar.</p>
+  </dialog>
+</body>
+</html>
